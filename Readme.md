@@ -31,7 +31,7 @@ This calculator performs basic arithmetic operations with a sleek neon UI, perfe
 
 ## Demo
 
-![Calculator Screenshot](/calculator-img.png)
+![Calculator Screenshot](./images/calculator-img.png)
 
 ## Future Improvements
 
