@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#05060A] flex justify-center items-center h-screen">
+
+  <div class="w-80 bg-[#0A0F1F] text-white p-4 rounded-xl shadow-lg shadow-blue-900">
+
+    <!-- Display -->
+    <input type="text" class="w-full bg-[#161B22] text-right text-3xl p-4 rounded-md outline-none" placeholder="0"
+      id="userInput" />
+
+    <!-- Buttons Grid -->
+    <div class="grid grid-cols-4 gap-3 mt-4">
+
+      <button class="bg-[#F78166] py-3 rounded-md text-lg btn">C</button>
+      <button class="bg-[#F78166] py-3 rounded-md text-lg btn">/</button>
+      <button class="bg-[#F78166] py-3 rounded-md text-lg btn">*</button>
+      <button class="bg-[#F78166] py-3 rounded-md text-lg btn">-</button>
+
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">7</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">8</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">9</button>
+      <button class="bg-[#F78166] py-3 rounded-md text-lg row-span-2 btn">+</button>
+
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">4</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">5</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">6</button>
+
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">1</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">2</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">3</button>
+      <button class="bg-[#F78166] py-3 rounded-md text-lg btn" rowspan="2">=</button>
+
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn  " colspan="2">0</button>
+      <button class="bg-[#1F6FEB] py-3 rounded-md text-lg btn">.</button>
+
+    </div>
+  </div>
+
+
+  <script>
+    let userInput = document.getElementById('userInput')
+    let buttons = document.querySelectorAll('.btn')
+    let operators = ["+", "-", "%", "/", "*"]
+
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        let btnValue = btn.innerText
+        let current = userInput.value
+        let lastValue = current.length > 0 ? current[current.length - 1] : ""
+
+
+        // Handle C button
+        if (btnValue === "C") {
+          userInput.value = ""
+          return
+        }
+
+        // Handle = button
+        if (btnValue === "=") {
+          try {
+            userInput.value = eval(current)  // calculate result
+          } catch (error) {
+            userInput.value = "Error"        // show error if expression is invalid
+          }
+          return
+        }
+
+        // Handle operators
+        if (operators.includes(btnValue)) {
+          if (operators.includes(lastValue)) {
+            // Replace last operator with new one
+            userInput.value = current.slice(0, current.length - 1) + btnValue
+          } else {
+            userInput.value += btnValue
+          }
+          return
+        }
+
+        // Handle numbers and decimal
+        userInput.value += btnValue
+      })
+    })
+
+
+  </script>
+
+</body>
+
+</html>
